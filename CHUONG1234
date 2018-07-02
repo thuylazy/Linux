@@ -1,0 +1,84 @@
+QUẢN TRỊ HỆ THỐNG LINUX
+(LPI1)
+CHƯƠNG I: TỔNG QUAN
+I.	Lịch sử phát triển
+II.	Các distro phổ biến của Linux
+-	Distro:  bản phân phối Linux
+1.	Debian
+2.	Ubuntu: Phổ biến nhất hnay
+Chia làm 2 loại: Ubuntu Desktop và ubuntu server
+3.	RedHat Enterprise Linux (RHEL)
+4.	Centos
+5.	Kali Linux
+III.	Đặc điểm của Linux
+CHƯƠNG II: CÀI ĐẶT LINUX SERVER 
+CHƯƠNG III: cẤU TRÚC HĐH LINUX
+I.	KIẾN TRÚC TỔNG QUAN HỆ THỐNG LINUX
+Chia thành 3 thành phần: Kernel, Shell, Applications
+1.	Kernel (Nhân): là phần quan trọng, chứa các module, thư viện để quản lý và giao tiếp với phần cứng và các ứng dụng
+2.	Shell: là một chương trình. Có chức năng thực thi các lệnh (command) từ người dùng hoặc từ các ứng dụng -  tiện ích yêu cầu chuyển đến cho Kernel xử lí. Bên cạnh đó, sell còn có khả năng bảo vệ kernel từ các yêu cầu không hợp lệ.
+Các loại shell: 
+	Sh (the Bourne Shell): đây là shell nguyên thuỷ của UNIX. Đến nay vẫn đc sử dụng rộng rãi.
+	Bash (Bourne-again shell): đây là shell mặc định trên linux
+	Csh (the C shell): shell được viết bằng ngôn ngữ lập trình C
+	Ngoài ra còn có các loại shell khác: ash, tsh, zsh
+Dấu nhắc shell thay đổi tùy thuộc vào tài khoản user đang làm việc. Khi làm việc với tài khoản user root, dấu nhắc shell có dạng: 
+	[root@localhost root]#
+Khi làm việc với tài khoản user thường, dấu nhắc shell có dạng: 
+	[linux@localhost linux]$
+3.	Application: Là các ứng dụng và tiện ích của người dùng cài đặt trên Server. VD: ftp, samba, Proxy,…
+II.	CẤU TRÚC HỆ THỐNG FILE:
+Đc bố trí theo dạng hình cây (tree):
+Bắt đầu là thư mục gốc “/”, sau đó là các thư mục con (nhánh): /bin, /sbin,/home….
+
+/bin: chứa các file binary của các tập lệnh trong linux
+/sbin: Tương tự /bin, nhưng là những lệnh chỉ đc dùng bởi quản trị hệ thống – tương đương root uer.
+/boot: chứa các thư viện cần thiết cho quá trình khởi động
+/dev: chưa thông tin chứa các file thiết bị. Trong linux, mỗi thiết bị đều có file đại diện và được đặt tên theo 1 logic nhất định:
+o	cdrom: đĩa CDRom/ DVD
+o	fd* : đĩa mềm
+o	hd* : đĩa cứng IDE
+o	sd* : đĩa cứng SCSI
+o	st* : băng từ
+o	tty* : cổng giao tiếp (COM)
+o	eth* : card ethenet
+/etc: chứa file cấu hình hệ thống và ứng dụng
+/lib: chứa thư viện chia sẻ đc dùng bởi các tiến trình, các lệnh boot, lệnh hệ thống như trong /bin và /sbin.
+/lib64: tương tự như lib nhưng dành cho 64bit
+/opt: nơi dành riêng cho các tiện ích chương trình đc cài đặt
+/media: thư mục có vai trò như đích đến của quá trình mount. Khi gắn 1 thiết bị lưu trữ bên ngoài, để sử dụng, cần mount thiết bị này vào /media, từ đó các thư mục, tập tin sẽ đc chuyển vào đây (lúc này /media có thể coi như ảnh chiếu của thiết bị)
+/run
+/root: thư mục home của user root.
+/home: thư mục chứa các thư mục home của các user đc tạo
+/sys
+/srv: chứa dữ liệu, các file của các dịch vụ trên hệ thống
+/mnt: thư mục này được dùng để gắn các hệ thống tập tin tạm thời (mounted filesystems)
+/proc: lưu các thông tin về tình trạng của hệ thống
+
+III.	CÁC KIỂU FILE
+Có 3 loại file: file thông thường (Regular files), file thư mục (Directory files), file đặc biệt (Special files)
+-	File thông thường:  một chương trình, file text, library, file nhạc…
+-	Thư mục: thành phần dùng để chứa các file khác (container)
+-	File đặc biệt: device, socket, pipe, symbolic links,…
+Các file thường bắt đầu bằng dấu “.”
+IV.	ĐƯỜNG DẪN
+Có 3 loại đường dẫn:
+-	Đường dẫn tuyệt đối: bắt đầu bằng “/”. VD: /etc/sysconfig
+-	Đường dẫn tương đối: không bắt đầu bằng “/”. VD: etc/sysconfig
+-	Đường dẫn đặc biệt: “..” thư mục cha, “.” Thư mục hiện tại
+CHƯƠNG IV: CÁC LỆNH CƠ BẢN
+Dòng lệnh dạng shell tổng quát có dạng: 
+	command  [options]
+Trong đó: 
+command : Lệnh
+		options: Tùy chọn, thường bắt đầu bằng – hoặc --. Nhiều tùy chọn có thể kết hợp bằng một kí hiệu -. Vd -1F thay vì -1-F
+		arguments: tham số lệnh
+Chú ý: Dòng lệnh shell có phân biệt chữ thường và chữ hoa
+I.	LỆNH TRỢ GIÚP: man
+Man <tên_lệnh>
+		VD: để xem hướng dẫn sử dụng lệnh cp(copy) có thể nhậnp lệnh:
+			$man cp
+			Để thoát khỏi man bấm phím “q”
+II.	CÁC LỆNH KIỂM TRA PERFORMANCE
+1.	Lệnh xem thông tin RAM: 
+
